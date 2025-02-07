@@ -3,6 +3,8 @@ import pandas as pd
 import streamlit as st
 import pydeck as pdk
 
+st.set_page_config(page_title="Map Demo", page_icon="assets/LogoWithoutBg.png")
+
 st.markdown("# Mapping Demo")
 st.sidebar.header("Mapping Demo")
 

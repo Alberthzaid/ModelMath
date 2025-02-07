@@ -3,7 +3,7 @@ import random
 import time
 
 
-st.set_page_config(page_title="NauticSoft", page_icon="👋")
+st.set_page_config(page_title="NauticSoft", page_icon="assets/LogoWithoutBg.png")
 st.sidebar.success("Select your router")
 
 

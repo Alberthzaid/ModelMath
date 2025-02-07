@@ -4,6 +4,8 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
+st.set_page_config(page_title="Chart Demo", page_icon="assets/LogoWithoutBg.png")
+
 st.markdown("# Chart Demo")
 st.sidebar.header("Chart Demo")
 
