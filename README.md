@@ -22,7 +22,7 @@
 
 
 <div align="center">
-  A rag system that predicts the winner of the 2026 FIFA World Cup.
+  A rag system that predicts the winner of the 2026 FIFA World Cup, for the final project of calculus II.
 </div>
 <div align="center"><b>
 
@@ -49,22 +49,31 @@ lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 
 
+
 </div>
 
 </details>
 
 <details>
-<summary>Chart Demo</summary>
+<summary>Charts</summary>
 <br>
 
 <div align="center">
 
 
 <p style="font-family: 'Georgia', serif; font-size: 18px;">
-lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+the chart is divided into three sections: Groups, Teams by Group, and International Matches. The first section displays the groups and teams in the tournament, while the second section allows you to select a group and display the teams within that group. The third section displays the international matches and their rankings based on FIFA rankings.
 </p>
 
+1.
 
+![image](/assets/ChartsPreview/Groups.png)
+
+2.
+![image](/assets/ChartsPreview/TeamsGroups.png)
+
+3.
+![image](/assets/ChartsPreview/history.png)
 
 </div>
 

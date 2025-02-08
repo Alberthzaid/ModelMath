@@ -4,7 +4,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-st.set_page_config(page_title="Predicción Mundial 2026", page_icon="assets/LogoWithoutBg.png")
+st.set_page_config(page_title="Charts Mundial 2026", page_icon="assets/LogoWithoutBg.png")
 
 st.title("📊 Charts del Mundial 2026")
 st.sidebar.header("Opciones de visualización")
