@@ -214,4 +214,4 @@ pip install -r requeriments.txt
 streamlit run Rag.py
 ```
 
-and enjoy! 😊
+and enjoy!! 😊
