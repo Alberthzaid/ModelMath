@@ -225,7 +225,7 @@ py -m venv .venv
 4.  install the dependencies:
 
 ```bash
-pip install -r requeriments.txt
+pip install -r requirements.txt
 ```
 
 5. Run the project:
