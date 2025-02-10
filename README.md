@@ -208,7 +208,7 @@ py -m venv venv
 3. Activate the virtual environment:
 
 ```bash
-.env\Scripts\Activate.ps1
+venv\Scripts\Activate.ps1
 ```
 
 4.  install the dependencies:
