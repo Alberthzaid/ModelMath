@@ -197,24 +197,35 @@ git clone https://github.com/Alberthzaid/ModelMath.git
 2. Create a virtual environment:
 
 ```bash
-python -m venv venv
+python -m venv .venv
 ```
 or
 
 ```bash
-py -m venv venv
+py -m venv .venv
 ```
 
 3. Activate the virtual environment:
 
-```bash
-.env\Scripts\Activate.ps1
-```
+- **Windows (PowerShell)**
+  ```bash
+  .venv\Scripts\Activate.ps1
+  ```
+
+- **Windows (cmd)**
+  ```bash
+  .venv\Scripts\activate.bat
+  ```
+
+- **macOS/Linux**
+  ```bash
+  source .venv/bin/activate
+  ```
 
 4.  install the dependencies:
 
 ```bash
-pip install -r requeriments.txt
+pip install -r requirements.txt
 ```
 
 5. Run the project:

@@ -1,31 +1,51 @@
 import streamlit as st
 import time
 import numpy as np
+import pandas as pd
+import joblib
 
-st.set_page_config(page_title="Plotting Demo", page_icon="assets/LogoWithoutBg.png")
 
-st.markdown("# Plotting Demo")
-st.sidebar.header("Plotting Demo")
+st.set_page_config(page_title="Predicción FIFA", page_icon="⚽")
+
+st.markdown("# Predicción de Resultados FIFA")
+st.sidebar.header("Comparación de Equipos")
 st.write(
-    """This demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!"""
+    """Esta visualización muestra la evolución de los puntajes FIFA de varios equipos 
+    en una animación progresiva."""
 )
+
+
+model = joblib.load("/home/usuario/ModelMath/Helpers/fifa_winner_model.pkl")
+
+teams_data = pd.DataFrame({
+    "Equipo": ["Brazil", "Belgium", "France", "Argentina", "England", 
+               "Italy", "Spain", "Portugal", "Mexico", "Netherlands"],
+    "Ranking": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "Puntos FIFA": [1832, 1827, 1789, 1765, 1761, 1723, 1709, 1674, 1658, 1658]
+})
+
 
 progress_bar = st.sidebar.progress(0)
 status_text = st.sidebar.empty()
-last_rows = np.random.randn(1, 1)
-chart = st.line_chart(last_rows)
+chart_data = pd.DataFrame({"Equipo": [], "Puntos FIFA": []})
+chart = st.line_chart(chart_data)
+
 
 for i in range(1, 101):
-    new_rows = last_rows[-1, :] + np.random.randn(5, 1).cumsum(axis=0)
-    status_text.text("%i%% Complete" % i)
-    chart.add_rows(new_rows)
+    noise = np.random.randint(-5, 5, size=len(teams_data)) 
+    teams_data["Puntos FIFA"] = teams_data["Puntos FIFA"] + noise 
+    
+
+    new_chart_data = teams_data.set_index("Equipo")["Puntos FIFA"]
+    chart.line_chart(new_chart_data) 
+    
+    status_text.text(f"{i}% Completado")
     progress_bar.progress(i)
-    last_rows = new_rows
     time.sleep(0.05)
 
 progress_bar.empty()
 
 
-st.button("Re-run")
+if st.button("Mostrar equipo con más puntos"):
+    best_team = teams_data.loc[teams_data["Puntos FIFA"].idxmax()]
+    st.success(f"🏆 El equipo con más puntos es {best_team['Equipo']} con {best_team['Puntos FIFA']} puntos.")
