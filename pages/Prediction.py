@@ -15,7 +15,7 @@ st.write(
 )
 
 
-model = joblib.load("/home/usuario/ModelMath/Helpers/fifa_winner_model.pkl")
+model = joblib.load("Helpers/fifa_winner_model.pkl")
 
 teams_data = pd.DataFrame({
     "Equipo": ["Brazil", "Belgium", "France", "Argentina", "England", 
