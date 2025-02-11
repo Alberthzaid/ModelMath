@@ -18,17 +18,20 @@ class CleanData:
         new_df = df.replace({"IR Iran": "Iran", "Costarica": "Costa Rica", "Korea Republic": "South Korea"})
 
         fifa_rank = new_df[['date', 'home_team', 'away_team', 'home_team_fifa_rank', 'away_team_fifa_rank',
-                            'home_team_total_fifa_points', 'away_team_total_fifa_points']]
+                        'home_team_total_fifa_points', 'away_team_total_fifa_points', 'home_team_result']]
 
-        home = fifa_rank[['date', 'home_team', 'home_team_fifa_rank', 'home_team_total_fifa_points']].rename(
-            columns={'home_team': 'team',
-                     'home_team_fifa_rank': 'rank',
-                     'home_team_total_fifa_points': 'rank_points'})
+        home = fifa_rank[['date', 'home_team', 'home_team_fifa_rank', 'home_team_total_fifa_points', 'home_team_result']].rename(
+        columns={'home_team': 'team',
+                 'home_team_fifa_rank': 'rank',
+                 'home_team_total_fifa_points': 'rank_points'})
 
         away = fifa_rank[['date', 'away_team', 'away_team_fifa_rank', 'away_team_total_fifa_points']].rename(
-            columns={'away_team': 'team',
-                     'away_team_fifa_rank': 'rank',
-                     'away_team_total_fifa_points': 'rank_points'})
+        columns={'away_team': 'team',
+                 'away_team_fifa_rank': 'rank',
+                 'away_team_total_fifa_points': 'rank_points'})
+
+    
+        away['home_team_result'] = home['home_team_result'].values
 
         fifa_rank = pd.concat([home, away])
 
@@ -37,6 +40,3 @@ class CleanData:
         fifa_rank_top = fifa_rank[fifa_rank['row_number'] == 1].drop('row_number', axis=1).nsmallest(10, 'rank')
 
         return fifa_rank_top
-
-clean_data = CleanData("/home/usuario/PycharmProjects/Math/datasets/international_matches.csv")
-print(clean_data.reshaping_data().head(100))

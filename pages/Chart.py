@@ -12,7 +12,7 @@ st.sidebar.header("Opciones de visualización")
 
 seccion = st.sidebar.selectbox("Selecciona una sección:", ["Grupos", "Equipos por Grupo", "Historial de Partidos"])
 
-grupo_df = pd.read_csv("datasets/Groupes.csv")
+grupo_df = pd.read_csv("datasets/groups.csv")
 partidos_df = pd.read_csv("datasets/international_matches.csv")
 
 if seccion == "Grupos":
