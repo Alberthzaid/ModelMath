@@ -6,7 +6,7 @@ import altair as alt
 
 st.set_page_config(page_title="Charts Mundial 2026", page_icon="assets/LogoWithoutBg.png")
 
-st.title("📊 Charts del Mundial 2026")
+st.title("📊 Charts de estatisticas anteriores al Mundial 2026")
 st.sidebar.header("Opciones de visualización")
 
 
@@ -47,4 +47,4 @@ elif seccion == "Historial de Partidos":
     ).properties(title="Comparación de Rankings FIFA en Partidos")
     st.altair_chart(ranking_chart, use_container_width=True)
 
-st.write("Este análisis ayuda a visualizar los equipos y su rendimiento en el Mundial 2026 basado en datos históricos y rankings FIFA.")
+st.write("Este análisis ayuda a visualizar los equipos y su hipotetico rendimiento que podrian presentar en el Mundial 2026 basado en datos históricos y rankings FIFA.")
