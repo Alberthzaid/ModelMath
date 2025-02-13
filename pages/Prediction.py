@@ -7,15 +7,13 @@ import joblib
 
 st.set_page_config(page_title="Predicción FIFA", page_icon="⚽")
 
-st.markdown("# Predicción de Resultados FIFA")
+st.markdown("# 🏆 Predicción del Campeón del Mundial")
 st.sidebar.header("Comparación de Equipos")
-st.write(
-    """Esta visualización muestra la evolución de los puntajes FIFA de varios equipos 
-    en una animación progresiva."""
-)
+st.write("Esta visualización muestra la evolución de los puntajes FIFA de varios equipos y predice al campeón.")
 
 
-model = joblib.load("Helpers/fifa_winner_model.pkl")
+model = joblib.load("fifa_winner_model.pkl")
+
 
 teams_data = pd.DataFrame({
     "Equipo": ["Brazil", "Belgium", "France", "Argentina", "England", 
@@ -25,27 +23,45 @@ teams_data = pd.DataFrame({
 })
 
 
+teams_data = teams_data.rename(columns={"Ranking": "rank", "Puntos FIFA": "rank_points"})
+
+
 progress_bar = st.sidebar.progress(0)
 status_text = st.sidebar.empty()
-chart_data = pd.DataFrame({"Equipo": [], "Puntos FIFA": []})
+chart_data = pd.DataFrame({"Equipo": [], "rank_points": []})
 chart = st.line_chart(chart_data)
 
-
 for i in range(1, 101):
-    noise = np.random.randint(-5, 5, size=len(teams_data)) 
-    teams_data["Puntos FIFA"] = teams_data["Puntos FIFA"] + noise 
-    
+    noise = np.random.randint(-5, 5, size=len(teams_data))  
+    teams_data["rank_points"] = teams_data["rank_points"] + noise  
 
-    new_chart_data = teams_data.set_index("Equipo")["Puntos FIFA"]
-    chart.line_chart(new_chart_data) 
-    
+    new_chart_data = teams_data.set_index("Equipo")["rank_points"]
+    chart.line_chart(new_chart_data)  
+
     status_text.text(f"{i}% Completado")
     progress_bar.progress(i)
     time.sleep(0.05)
 
 progress_bar.empty()
 
+st.subheader("🏆 Predecir el Campeón del Mundial")
 
-if st.button("Mostrar equipo con más puntos"):
-    best_team = teams_data.loc[teams_data["Puntos FIFA"].idxmax()]
-    st.success(f"🏆 El equipo con más puntos es {best_team['Equipo']} con {best_team['Puntos FIFA']} puntos.")
+if st.button("Predecir Campeón"):
+
+    X = teams_data[['rank', 'rank_points']]
+
+
+    predictions = model.predict_proba(X)[:, 1]  
+
+    teams_data["Probabilidad de Victoria"] = predictions
+
+
+    champion_index = predictions.argmax()
+    champion_team = teams_data.iloc[champion_index]["Equipo"]
+
+
+    st.success(f"🎉 ¡El modelo predice que el campeón del Mundial será **{champion_team}**! 🏆")
+
+
+    st.subheader("📊 Probabilidades de Victoria de Cada Equipo")
+    st.bar_chart(teams_data.set_index("Equipo")["Probabilidad de Victoria"])

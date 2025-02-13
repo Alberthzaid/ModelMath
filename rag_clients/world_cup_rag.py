@@ -49,6 +49,7 @@ class WorldCupRAG(RAG):
       2. Predice un marcador probable basado en el rendimiento pasado.
       3. Sé conciso y directo (máximo 30 palabras).
       4. Responde en un solo párrafo.
+      5. Tu respuesta debe ser en español
 
       Salida esperada:
       - Comparación breve del rendimiento de ambos equipos.

@@ -39,3 +39,5 @@ class CleanData:
         fifa_rank_top = fifa_rank[fifa_rank['row_number'] == 1].drop('row_number', axis=1).nsmallest(10, 'rank')
 
         return fifa_rank_top
+    
+

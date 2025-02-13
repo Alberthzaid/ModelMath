@@ -36,3 +36,4 @@ class MLModel:
         joblib.dump(accuracy, "model_accuracy.pkl")
         print("Modelo guardado como fifa_winner_model.pkl")
 
+
