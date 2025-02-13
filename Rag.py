@@ -1,51 +1,46 @@
 import streamlit as st
-import random
-import time
+from models_clients.deepseek import DeepseekClient
+from rag_clients.world_cup_rag import WorldCupRAG
 
 
-st.set_page_config(page_title="NauticSoft", page_icon="assets/LogoWithoutBg.png")
-st.sidebar.success("Select your router")
+st.set_page_config(page_title="RAG Mundial", page_icon="⚽")
+st.sidebar.success("Selecciona una opción")
+
+st.markdown("# Predicción de Partidos del Mundial 2026")
+st.sidebar.header("RAG Mundial")
+
+model_client = DeepseekClient(version="1.5b")
+rag = WorldCupRAG(model_client)
 
 
-st.markdown("# RAG Demo")
-st.sidebar.header("RAG Demo")
-
-
-# Streamed response emulator
-def response_generator():
-    response = random.choice(
-        [
-            "Hello there! How can I assist you today?",
-            "Hi, human! Is there anything I can help you with?",
-            "Do you need help?",
-            "Where are you from?"
-        ]
-    )
-    for word in response.split():
-        yield word + " "
-        time.sleep(0.05)
-
-
-
-# Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display chat messages from history on app rerun
+
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Accept user input
-if prompt := st.chat_input("What is up?"):
-    # Add user message to chat history
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    # Display user message in chat message container
-    with st.chat_message("user"):
-        st.markdown(prompt)
 
-    # Display assistant response in chat message container
-    with st.chat_message("assistant"):
-        response = st.write_stream(response_generator())
-    # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response})
+team1 = st.text_input("Ingrese el primer equipo:", key="team1")
+team2 = st.text_input("Ingrese el segundo equipo:", key="team2")
+
+
+if st.button("Predecir Resultado"):
+
+    if team1 and team2:
+
+        response = rag.predict_match(team1, team2)
+
+
+        st.session_state.messages.append({"role": "user", "content": f"¿Quién ganará entre {team1} y {team2}?"})
+        with st.chat_message("user"):
+            st.markdown(f"¿Quién ganará entre {team1} y {team2}?")
+
+
+        st.session_state.messages.append({"role": "assistant", "content": response})
+        with st.chat_message("assistant"):
+            st.markdown(response)
+    else:
+        st.warning("Por favor, ingrese ambos equipos.")
+

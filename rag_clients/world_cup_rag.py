@@ -1,13 +1,14 @@
 import os
 
 import pandas as pd
-
 from models_clients.deepseek import DeepseekClient
 from models_clients.ollama import OllamaClient
-from rag import RAG
+from Helpers.clean_data import CleanData
+from rag_clients.rag import RAG
 
 
 class WorldCupRAG(RAG):
+
   def __init__(self, model_client: OllamaClient):
     super().__init__(model_client)
 
@@ -38,13 +39,24 @@ class WorldCupRAG(RAG):
     match_history = self.retrieve_match_data(team1, team2)
 
     prompt = f"""
-        Basado en los siguientes datos históricos, predice el resultado del partido entre {team1} y {team2} en el Mundial 2026.
+    Analiza los datos históricos de los partidos entre {team1} y {team2} y predice el resultado de su encuentro en el Mundial 2026.
 
-        Historial de enfrentamientos:
-        {match_history}
+      ### Datos históricos:
+      {match_history}
 
-        Responde con un análisis del rendimiento de ambos equipos y una posible predicción de marcador.
-        """
+      ### Instrucciones:
+      1. Compara brevemente los resultados previos y destaca tendencias.
+      2. Predice un marcador probable basado en el rendimiento pasado.
+      3. Sé conciso y directo (máximo 30 palabras).
+      4. Responde en un solo párrafo.
+
+      Salida esperada:
+      - Comparación breve del rendimiento de ambos equipos.
+      - Predicción de resultado con marcador final.
+
+      Ejemplo de respuesta:
+      "{team1} ha mostrado dominio en partidos recientes contra {team2}, con mejor rendimiento ofensivo. Basado en tendencias, se espera un resultado de {team1} 2-1 {team2}."
+    """
 
     return self.generate_response(prompt)
 
@@ -95,3 +107,4 @@ class WorldCupRAG(RAG):
       "losses": total_losses,
       "goals_scored": total_goals
     }
+
