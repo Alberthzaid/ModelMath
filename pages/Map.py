@@ -3,6 +3,8 @@ import pandas as pd
 import streamlit as st
 import pydeck as pdk
 
+from Helpers.clean_data import CleanData
+
 st.set_page_config(page_title="Map Demo", page_icon="assets/LogoWithoutBg.png")
 
 st.markdown("# Mapping Demo")
@@ -88,3 +90,8 @@ except URLError as e:
     """
         % e.reason
     )
+
+# ONLY TESTS
+clean_data = CleanData('datasets/international_matches.csv')
+filtered_df = clean_data.filter_by_rank(5)
+print(filtered_df)
