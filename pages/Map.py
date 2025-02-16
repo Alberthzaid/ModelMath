@@ -2,13 +2,15 @@ from urllib.error import URLError
 import pandas as pd
 import streamlit as st
 import pydeck as pdk
-
 from Helpers.clean_data import CleanData
+
 
 st.set_page_config(page_title="Map Demo", page_icon="assets/LogoWithoutBg.png")
 
 st.markdown("# Mapping Demo")
 st.sidebar.header("Mapping Demo")
+
+
 
 @st.cache_data
 def from_data_file(filename):
