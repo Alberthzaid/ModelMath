@@ -43,11 +43,12 @@
 <div align="center">
 
 
+
 <p style="font-family: 'Georgia', serif; font-size: 18px;">
-lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+the objetive of that feauture is a chat when u can enter 2 teams and the system will compare the teams and show the hypotetical results of the game
 </p>
 
-
+![image](/assets/RagPreview/RagFunc.png)
 
 
 </div>
@@ -106,9 +107,19 @@ lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 
 <p style="font-family: 'Georgia', serif; font-size: 18px;">
-lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+In the following, we show the predictions of the model on the test set. The table shows the predicted winner of the world cup 2026 and the probability of winning the tournament. the system allows to the user to click on a button to see the firts candidate of the prediction.
 </p>
 
+
+1. table with probability of winning the tournament
+
+![image](/assets/PredictionPreview/AnalizePrediction.png)
+
+
+
+2. the system allows to the user to click on a button to see the firts candidate of the prediction.
+
+![image](/assets/PredictionPreview/PredictionResult.png)
 
 
 </div>
@@ -125,10 +136,10 @@ lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 
 <p style="font-family: 'Georgia', serif; font-size: 18px;">
-lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+in that section you can find the team of the project and the taks that we have done in the project
 </p>
 
-
+![image](/assets/TeamPreview/TeamPreview.png)
 
 </div>
 

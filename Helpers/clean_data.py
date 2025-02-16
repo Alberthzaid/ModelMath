@@ -39,5 +39,20 @@ class CleanData:
         fifa_rank_top = fifa_rank[fifa_rank['row_number'] == 1].drop('row_number', axis=1).nsmallest(10, 'rank')
 
         return fifa_rank_top
-    
 
+    # Funciones de filtrado usando reshaping_data()
+    def filter_by_result(self, result: str) -> pd.DataFrame:
+        df = self.reshaping_data()
+        return df[df['home_team_result'].str.lower() == result.lower()]
+
+    def filter_by_rank(self, rank: int) -> pd.DataFrame:
+        df = self.reshaping_data()
+        return df[df['rank'] == rank]
+
+    def filter_by_rank_points(self, points: int) -> pd.DataFrame:
+        df = self.reshaping_data()
+        return df[df['rank_points'] == points]
+
+    def filter_by_team(self, team: str) -> pd.DataFrame:
+        df = self.reshaping_data()
+        return df[df['team'].str.lower() == team.lower()]

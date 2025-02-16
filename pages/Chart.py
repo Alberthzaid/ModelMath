@@ -39,12 +39,19 @@ elif seccion == "Historial de Partidos":
     partidos_filtrados = partidos_df[partidos_df["tournament"] == torneo_seleccionado]
     st.dataframe(partidos_filtrados)
 
-    ranking_chart = alt.Chart(partidos_filtrados).mark_circle(size=100).encode(
-        x='home_team_fifa_rank:Q',
-        y='away_team_fifa_rank:Q',
-        color='home_team:N',
-        tooltip=['home_team', 'away_team', 'home_team_score', 'away_team_score']
-    ).properties(title="Comparación de Rankings FIFA en Partidos")
+    ranking_avg_df = (
+        partidos_filtrados.groupby("home_team")["home_team_fifa_rank"]
+        .mean()
+        .reset_index()
+        .rename(columns={"home_team_fifa_rank": "ranking_promedio"})
+    )
+
+    ranking_chart = alt.Chart(ranking_avg_df).mark_bar().encode(
+        x=alt.X("ranking_promedio:Q", title="Ranking FIFA Promedio"),
+        y=alt.Y("home_team:N", title="Equipo", sort="-x"),
+        color=alt.Color("home_team:N", legend=None)
+    ).properties(title=f"Ranking Promedio de Equipos en {torneo_seleccionado}")
+
     st.altair_chart(ranking_chart, use_container_width=True)
 
 st.write("Este análisis ayuda a visualizar los equipos y su hipotetico rendimiento que podrian presentar en el Mundial 2026 basado en datos históricos y rankings FIFA.")
