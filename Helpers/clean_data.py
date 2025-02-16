@@ -1,5 +1,6 @@
 import warnings
-import  pandas as pd
+import pandas as pd
+import streamlit as st
 
 warnings.filterwarnings('ignore')
 
@@ -33,26 +34,32 @@ class CleanData:
         away['home_team_result'] = home['home_team_result'].values
 
         fifa_rank = pd.concat([home, away])
-
         fifa_rank = fifa_rank.sort_values(['team', 'date'], ascending=[True, False])
         fifa_rank['row_number'] = fifa_rank.groupby('team').cumcount() + 1
         fifa_rank_top = fifa_rank[fifa_rank['row_number'] == 1].drop('row_number', axis=1).nsmallest(10, 'rank')
 
         return fifa_rank_top
 
-    # Funciones de filtrado usando reshaping_data()
-    def filter_by_result(self, result: str) -> pd.DataFrame:
+    def filter_by_result(self) -> pd.DataFrame:
         df = self.reshaping_data()
-        return df[df['home_team_result'].str.lower() == result.lower()]
+        result_options = df['home_team_result'].dropna().unique().tolist()
+        selected_result = st.sidebar.selectbox("Selecciona el resultado", result_options)
+        return df[df['home_team_result'] == selected_result]
 
-    def filter_by_rank(self, rank: int) -> pd.DataFrame:
+    def filter_by_rank(self) -> pd.DataFrame:
         df = self.reshaping_data()
-        return df[df['rank'] == rank]
+        min_rank, max_rank = int(df['rank'].min()), int(df['rank'].max())
+        selected_rank = st.sidebar.slider("Selecciona el ranking", min_rank, max_rank, min_rank)
+        return df[df['rank'] == selected_rank]
 
-    def filter_by_rank_points(self, points: int) -> pd.DataFrame:
+    def filter_by_rank_points(self) -> pd.DataFrame:
         df = self.reshaping_data()
-        return df[df['rank_points'] == points]
+        min_points, max_points = int(df['rank_points'].min()), int(df['rank_points'].max())
+        selected_points = st.sidebar.slider("Selecciona los puntos de ranking", min_points, max_points, min_points)
+        return df[df['rank_points'] == selected_points]
 
-    def filter_by_team(self, team: str) -> pd.DataFrame:
+    def filter_by_team(self) -> pd.DataFrame:
         df = self.reshaping_data()
-        return df[df['team'].str.lower() == team.lower()]
+        team_options = df['team'].dropna().unique().tolist()
+        selected_team = st.sidebar.selectbox("Selecciona el equipo", team_options)
+        return df[df['team'] == selected_team]
