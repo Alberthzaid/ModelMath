@@ -82,24 +82,6 @@ the chart is divided into three sections: Groups, Teams by Group, and Internatio
 
 
 <details>
-<summary>Map Demo</summary>
-<br>
-
-<div align="center">
-
-
-<p style="font-family: 'Georgia', serif; font-size: 18px;">
-lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-</p>
-
-
-
-</div>
-
-</details>
-
-
-<details>
 <summary>Prediction </summary>
 <br>
 
